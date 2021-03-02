@@ -2,6 +2,7 @@
 
 module CustomerApp
   class RecordNotFound < StandardError; end
+  class RecordInvalid < StandardError; end
 
   class Adapter
     CUSTOMERS = [
@@ -13,14 +14,26 @@ module CustomerApp
     ].freeze
 
     def get(params)
-      customer = CUSTOMERS.find { |c| c[:id] == params[:id] }
+      customer = find_customer(:id, params[:id])
 
       return success_response(customer, 200) if customer
 
       raise CustomerApp::RecordNotFound, "Customer not found"
     end
 
+    def post(params)
+      customer = find_customer(:name, params[:name])
+
+      raise CustomerApp::RecordInvalid, "Customer with given name already exists" if customer
+
+      success_response(params, 200)
+    end
+
     private
+
+    def find_customer(attribute, value)
+      CUSTOMERS.find { |c| c[attribute] == value }
+    end
 
     def success_response(data, http_status)
       OpenStruct.new(

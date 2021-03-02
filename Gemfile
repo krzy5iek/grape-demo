@@ -11,4 +11,5 @@ gem "rake"
 group :test, :development do
   gem "pry"
   gem "rubocop"
+  gem "rerun"
 end

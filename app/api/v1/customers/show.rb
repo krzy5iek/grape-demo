@@ -9,7 +9,9 @@ module API
         end
 
         get do
-          customer = CustomersService.get(declared_params)
+          repo = Customer::Repo.new
+          service = Customer::FindService.new(repo: repo)
+          customer = service.call(**declared_params)
 
           present customer, with: API::Entities::Customer
         end

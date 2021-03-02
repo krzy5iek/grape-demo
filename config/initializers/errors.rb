@@ -2,4 +2,5 @@
 
 class ApplicationError < StandardError; end
 class AuthenticationError < ApplicationError; end
+class RecordInvalidError < ApplicationError; end
 class RecordNotFoundError < ApplicationError; end

@@ -31,6 +31,14 @@ class ErrorHandler
       http_status: 401,
       code: 100,
     },
+    "Grape::Exceptions::ValidationErrors" => {
+      http_status: 422,
+      code: 1100,
+    },
+    "RecordInvalidError" => {
+      http_status: 422,
+      code: 1101,
+    },
     "RecordNotFoundError" => {
       http_status: 404,
       code: 1050,
